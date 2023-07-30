@@ -22,10 +22,17 @@ export class AnimalService{
     }
 
     async update(id: number, dto: CreateAnimal) {
-        
+        const animal = await this.animalRepository.findOne({where: {id}});
+        // cek animal exist
+
+        Object.assign(animal, dto);
+
+        return await this.animalRepository.save(animal);
     }
 
     async delete(id: number) {
-        
+        const animal = await this.animalRepository.findOne({where: {id}});
+
+        return await this.animalRepository.remove(animal)
     }
 }

@@ -7,23 +7,23 @@ import { AnimalService } from './animal.service';
 export class AnimalController {
     constructor(private readonly animalServices: AnimalService) {}
 
-    // @Post()
-    // create(@Body() dto: CreateAnimal) {
-    //     return null
-    // }
+    @Post()
+    create(@Body() dto: CreateAnimal) {
+        return this.animalServices.create(dto);
+    }
 
     @Get()
     findMany(){
         return this.animalServices.findMany();
     }
 
-    // @Put(':id')
-    // update(@Param('id') id: number, @Body() dto: CreateAnimal) {
-    //     return null
-    // }
+    @Put(':id')
+    update(@Param('id') id: number, @Body() dto: CreateAnimal) {
+        return this.animalServices.update(id, dto);
+    }
 
-    // @Delete(':id')
-    // delete(@Param('id') id:number) {
-    //     return null
-    // }
+    @Delete(':id')
+    delete(@Param('id') id:number) {
+        return this.animalServices.delete(id);
+    }
 }

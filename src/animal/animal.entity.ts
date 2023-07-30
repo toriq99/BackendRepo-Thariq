@@ -14,10 +14,10 @@ export class Animal {
     @Column()
     description: string;
 
-    @Column({ type: 'timestamp', default: () => null})
+    @Column({ type: 'datetime', default: () => null})
     created_at: Date;
 
-    @Column({ type: 'timestamp', default: () => null})
+    @Column({ type: 'datetime', default: () => null})
     updated_at: Date;
 
 }
