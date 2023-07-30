@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TodosModule } from './todos/todos.module';
 import { Todo } from './todos/todo.entity';
 import { join } from 'path';
+import { AnimalModule } from './animal/animal.module';
 
 @Module({
   imports: [
@@ -21,12 +22,13 @@ import { join } from 'path';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         entities: [join(process.cwd(), 'dist/**/*.entity.js')],
-        synchronize: true,
+        synchronize: false,     // disarankan pilih false jika tabel sudah dibuat sebelumnya
       }),
       inject: [ConfigService],
     }),
 
     TodosModule,
+    AnimalModule,
   ],
   controllers: [AppController],
   providers: [AppService],
