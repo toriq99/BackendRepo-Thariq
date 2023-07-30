@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TodoModule } from './todos/todos.module';
 import { Todo } from './todos/todo.entity';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { Todo } from './todos/todo.entity';
         username: 'root',
         password: '',
         database: 'testing_crud',
-        entities: [Todo],
+        entities: [join(process.cwd(), 'dist/**/*.entity.js')],
         synchronize: true,
       }),
       inject: [ConfigService],
