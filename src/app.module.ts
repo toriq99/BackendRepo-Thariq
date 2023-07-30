@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TodoModule } from './todos/todos.module';
+import { TodosModule } from './todos/todos.module';
 import { Todo } from './todos/todo.entity';
 import { join } from 'path';
 
@@ -13,20 +13,20 @@ import { join } from 'path';
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (ConfigService: ConfigService) => ({
+      useFactory: (configService: ConfigService) => ({
         type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: '',
-        database: 'testing_crud',
+        host: configService.get('DB_HOST'),
+        port: +configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
         entities: [join(process.cwd(), 'dist/**/*.entity.js')],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
 
-    TodoModule,
+    TodosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
